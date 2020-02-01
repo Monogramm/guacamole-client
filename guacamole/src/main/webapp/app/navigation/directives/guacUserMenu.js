@@ -135,6 +135,31 @@ angular.module('navigation').directive('guacUserMenu', [function guacUserMenu() 
             };
 
             /**
+             * Requests fullscreen for the Guacamole page.
+             */
+            $scope.fullscreen = function fullscreen() {
+                var elem = document.documentElement;
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.mozRequestFullScreen) { /* Firefox */
+                    elem.mozRequestFullScreen();
+                } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    elem.webkitRequestFullscreen();
+                } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                    elem.msRequestFullscreen();
+                }
+            };
+
+            /**
+             * Action which requests fullscreen for the Guacamole page.
+             */
+            var FULLSCREEN_ACTION = {
+                name      : 'USER_MENU.ACTION_FULLSCREEN',
+                className : 'fullscreen',
+                callback  : $scope.fullscreen
+            };
+
+            /**
              * Logs out the current user, redirecting them to back to the root
              * after logout completes.
              */
@@ -162,7 +187,7 @@ angular.module('navigation').directive('guacUserMenu', [function guacUserMenu() 
             /**
              * All available actions for the current user.
              */
-            $scope.actions = [ LOGOUT_ACTION ];
+            $scope.actions = [ FULLSCREEN_ACTION, LOGOUT_ACTION ];
 
         }] // end controller
 

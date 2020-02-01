@@ -12,6 +12,7 @@
         "ACTION_DELETE_SESSIONS"    : "Fermer les Sessions",
         "ACTION_LOGIN"              : "Se connecter",
         "ACTION_LOGOUT"             : "Se déconnecter",
+        "ACTION_FULLSCREEN"         : "Plein écran",
         "ACTION_MANAGE_CONNECTIONS" : "Connexions",
         "ACTION_MANAGE_PREFERENCES" : "Préférences",
         "ACTION_MANAGE_SETTINGS"    : "Paramètres",
