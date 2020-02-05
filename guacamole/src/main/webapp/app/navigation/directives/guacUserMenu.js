@@ -140,26 +140,31 @@ angular.module('navigation').directive('guacUserMenu', [function guacUserMenu() 
             $scope.fullscreen = function fullscreen() {
                 var elem = document.documentElement;
 
-                if (!elem.fullscreenElement && !elem.mozFullScreenElement &&
-                    !elem.webkitFullscreenElement && !elem.msFullscreenElement) {
+                if (!elem.fullscreenElement) {
+                    elem.fullscreenElement = (elem.mozFullScreenElement
+                            || elem.webkitFullscreenElement
+                            || elem.msFullscreenElement).bind(elem);
+                }
+
+                if (!elem.fullscreenElement) {
+                    if (!elem.requestFullscreen) {
+                        elem.requestFullscreen = (elem.mozRequestFullScreen
+                                || elem.webkitRequestFullscreen
+                                || elem.msRequestFullscreen).bind(elem);
+                    }
+
                     if (elem.requestFullscreen) {
                         elem.requestFullscreen();
-                    } else if (elem.mozRequestFullScreen) { /* Firefox */
-                        elem.mozRequestFullScreen();
-                    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-                        elem.webkitRequestFullscreen();
-                    } else if (elem.msRequestFullscreen) { /* IE/Edge */
-                        elem.msRequestFullscreen();
                     }
                 } else {
-                    if (elem.exitFullscreen) {
-                        elem.exitFullscreen();
-                    } else if (elem.mozCancelFullScreen) { /* Firefox */
-                        elem.mozCancelFullScreen();
-                    } else if (elem.webkitExitFullscreen) { /* Chrome, Safari and Opera */
-                        elem.webkitExitFullscreen();
-                    } else if (elem.msExitFullscreen) { /* IE/Edge */
-                        elem.msExitFullscreen();
+                    if (!document.exitFullscreen) {
+                        document.exitFullscreen = (document.mozCancelFullScreen
+                                || document.webkitExitFullscreen
+                                || document.msExitFullscreen).bind(document);
+                    }
+
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
                     }
                 }
             };
