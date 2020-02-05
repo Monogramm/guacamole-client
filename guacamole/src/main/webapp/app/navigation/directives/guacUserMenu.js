@@ -139,14 +139,12 @@ angular.module('navigation').directive('guacUserMenu', [function guacUserMenu() 
              */
             $scope.fullscreen = function fullscreen() {
                 var elem = document.documentElement;
+                var fullscreenElem = !(!document.fullscreenElement &&
+                    !document.msFullscreenElement &&
+                    !document.mozFullScreenElement &&
+                    !document.webkitFullscreenElement);
 
-                if (!elem.fullscreenElement) {
-                    elem.fullscreenElement = (elem.mozFullScreenElement
-                            || elem.webkitFullscreenElement
-                            || elem.msFullscreenElement).bind(elem);
-                }
-
-                if (!elem.fullscreenElement) {
+                if (!fullscreenElem) {
                     if (!elem.requestFullscreen) {
                         elem.requestFullscreen = (elem.mozRequestFullScreen
                                 || elem.webkitRequestFullscreen
